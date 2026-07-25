@@ -39,7 +39,7 @@ Run the tests with `npm test --prefix backend`.
 | Variable | Required | Notes |
 | --- | --- | --- |
 | `GEMINI_API_KEY` | Yes* | A single Gemini key. |
-| `GEMINI_API_KEYS` | No | One or more comma-separated keys. If set, the app rotates to the next key when one hits a rate limit. Takes priority over `GEMINI_API_KEY`. |
+| `GEMINI_API_KEYS` | Maybe | One or more comma-separated keys. If set, the app rotates to the next key when one hits a rate limit. Takes priority over `GEMINI_API_KEY`. |
 | `PORT` | No | Backend port. Defaults to `3001`. |
 
 \* Provide **either** `GEMINI_API_KEY` **or** `GEMINI_API_KEYS` — at least one is required.
@@ -76,9 +76,12 @@ A single-user web app with a TypeScript/Express backend and a React (Vite) front
 
 ### 3. Where I used an LLM (in building this)
 
-- **Prompt iteration** — used the model to draft and tighten the receipt-parsing prompt (the "line items are products only, use null for unreadable values, flag low-confidence fields" rules).
-- **Boilerplate scaffolding** — Vite/Express setup, the `concurrently` single-command dev script, and CSS.
-- **Wrote myself / reviewed line-by-line** — the validation layer (`validate.ts`, `validateSave.ts`), the key-rotation logic, the correction-UI state handling, and the tests. These are the parts where the judgment lives, and I can walk through every line.
+Being honest: I used an LLM and it wrote most of the actual code. What I want to be clear about is where *my* work went.
+
+- **Code generation** — the LLM produced the bulk of the boilerplate and implementation: the Vite/Express scaffold, the `concurrently` single-command setup, the multer upload handling, the CSS, and first drafts of the components and validation layer.
+- **Prompt iteration** — I worked with the LLM to write and tighten the receipt-parsing prompt (the "line items are products only, use null for unreadable values, flag low-confidence fields" rules).
+- **What was actually mine** — the decisions and the direction. I chose the scope, drove the build step by step, and made every judgment call the spec left open (what counts as a line item, fail-loud vs. fallback, `null` vs. `0`, how to surface low confidence, model choice). I also caught and corrected the LLM where it was wrong — e.g. it insisted my API key was invalid based on an outdated key format, and it first misdiagnosed a rate-limit error as a bad request. I read and understand every line I'm submitting and can walk through why it's there.
+- **What I'd flag** — the LLM is fast but was confidently wrong on current facts (model names, API key formats, quota behavior). I verified those against the live API rather than trusting them, which is why the model ended up as `gemini-flash-latest` instead of the first suggestion of 'gemini-2.0-flash'.
 
 ### 4. What I'd do with another week
 
