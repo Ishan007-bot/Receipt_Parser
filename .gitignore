@@ -1,0 +1,15 @@
+# dependencies
+node_modules/
+
+# secrets — never commit the real API key
+.env
+
+# build output
+dist/
+
+# saved data (created at runtime)
+backend/receipts.json
+
+# logs / OS files
+*.log
+.DS_Store
