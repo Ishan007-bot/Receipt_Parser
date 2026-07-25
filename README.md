@@ -81,7 +81,7 @@ Being honest: I used an LLM and it wrote most of the actual code. What I want to
 - **Code generation** — the LLM produced the bulk of the boilerplate and implementation: the Vite/Express scaffold, the `concurrently` single-command setup, the multer upload handling, the CSS, and first drafts of the components and validation layer.
 - **Prompt iteration** — I worked with the LLM to write and tighten the receipt-parsing prompt (the "line items are products only, use null for unreadable values, flag low-confidence fields" rules).
 - **What was actually mine** — the decisions and the direction. I chose the scope, drove the build step by step, and made every judgment call the spec left open (what counts as a line item, fail-loud vs. fallback, `null` vs. `0`, how to surface low confidence, model choice). I also caught and corrected the LLM where it was wrong — e.g. it insisted my API key was invalid based on an outdated key format, and it first misdiagnosed a rate-limit error as a bad request. I read and understand every line I'm submitting and can walk through why it's there.
-- **What I'd flag** — the LLM is fast but was confidently wrong on current facts (model names, API key formats, quota behavior). I verified those against the live API rather than trusting them, which is why the model ended up as `gemini-flash-latest` instead of the first suggestion of 'gemini-2.0-flash'.
+- **What I'd flag** — the LLM is fast but was confidently wrong on current facts (model names, API key formats, quota behavior). I verified those against the live API rather than trusting them, which is why the model ended up as `gemini-flash-latest` instead of the first suggestion of `gemini-2.0-flash`.
 
 ### 4. What I'd do with another week
 
